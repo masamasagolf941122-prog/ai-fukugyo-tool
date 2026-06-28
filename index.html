@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文系が、副業で使えるAIツールをまとめてみた。</title>
+<meta name="description" content="プログラミングなし・コードなし。文系が副業で稼げるAIツールを用途別に整理しました。カードをクリックすると具体的な使い方が読めます。">
+<meta property="og:title" content="文系が、副業で使えるAIツールをまとめてみた。">
+<meta property="og:description" content="プログラミングなし・コードなし。文系が副業で稼げるAIツールを用途別に整理しました。">
+<meta property="og:type" content="website">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f4f0;
+    --surface: #ffffff;
+    --border: #e4e3db;
+    --border-strong: #cccbc3;
+    --text-primary: #1a1a18;
+    --text-secondary: #6b6a64;
+    --text-muted: #aeada7;
+    --accent: #534AB7;
+    --accent-bg: #EEEDFE;
+    --accent-text: #3C3489;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+    height: 52px;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    justify-content: space-between;
+  }
+  .nav-left { display: flex; align-items: center; gap: 10px; }
+  .nav-logo { font-size: 14px; font-weight: 700; color: var(--text-primary); letter-spacing: -.02em; text-decoration: none; }
+  .nav-badge { font-size: 10px; padding: 2px 8px; border-radius: 999px; background: var(--accent-bg); color: var(--accent-text); font-weight: 600; }
+  .nav-links { display: flex; gap: 24px; }
+  .nav-link { font-size: 12px; color: var(--text-muted); text-decoration: none; transition: color .15s; }
+  .nav-link:hover { color: var(--text-primary); }
+
+  /* HERO */
+  .hero {
+    background: var(--surface);
+    border-bottom: 0.5px solid var(--border);
+    padding: 52px 24px 44px;
+    text-align: center;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: .08em;
+    margin-bottom: 14px;
+  }
+  .hero-title {
+    font-size: clamp(22px, 4vw, 30px);
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.25;
+    letter-spacing: -.03em;
+    margin-bottom: 14px;
+  }
+  .hero-title .hl { color: var(--accent); }
+  .hero-sub {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    max-width: 400px;
+    margin: 0 auto 28px;
+  }
+  .stats {
+    display: inline-flex;
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .stat {
+    padding: 10px 28px;
+    text-align: center;
+    border-right: 0.5px solid var(--border);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num { font-size: 20px; font-weight: 800; color: var(--text-primary); letter-spacing: -.02em; }
+  .stat-label { font-size: 10px; color: var(--text-muted); margin-top: 1px; }
+
+  /* MAIN */
+  .main { max-width: 860px; margin: 0 auto; padding: 28px 24px 60px; }
+
+  /* FILTER */
+  .filter-wrap {
+    position: sticky;
+    top: 52px;
+    z-index: 90;
+    background: rgba(245,244,240,0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 12px 0 14px;
+    margin-bottom: 24px;
+  }
+  .filter-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .fbtn {
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    border: 0.5px solid var(--border-strong);
+    background: var(--surface);
+    color: var(--text-secondary);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all .15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .fbtn:hover { border-color: var(--text-muted); color: var(--text-primary); }
+  .fbtn.active { background: var(--text-primary); color: #fff; border-color: var(--text-primary); }
+
+  /* INLINE DETAIL PANEL */
+  .inline-detail {
+    grid-column: 1 / -1;
+    background: var(--surface);
+    border: 1.5px solid var(--accent);
+    border-radius: var(--radius-lg);
+    padding: 20px 22px;
+    margin-top: 2px;
+    animation: expandIn .2s ease;
+  }
+  @keyframes expandIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .detail-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .detail-title { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+  .detail-close {
+    width: 28px; height: 28px;
+    border: 0.5px solid var(--border);
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted);
+    font-size: 14px;
+    transition: all .15s;
+  }
+  .detail-close:hover { background: var(--bg); color: var(--text-primary); }
+  .knowhow-list { list-style: none; }
+  .knowhow-item {
+    display: flex;
+    gap: 12px;
+    padding: 11px 0;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .knowhow-item:last-child { border-bottom: none; }
+  .knowhow-num { font-size: 10px; font-weight: 700; color: var(--text-muted); min-width: 18px; padding-top: 2px; flex-shrink: 0; }
+  .knowhow-title { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
+  .knowhow-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.65; }
+
+  /* CAT SECTION */
+  .cat-section { margin-bottom: 28px; }
+  .cat-section.hidden { display: none; }
+  .cat-header {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 10px;
+  }
+  .cat-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .cat-title { font-size: 11px; font-weight: 600; color: var(--text-muted); letter-spacing: .06em; }
+
+  /* GRID */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 7px;
+  }
+
+  /* CARD */
+  .tool-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 13px 14px;
+    cursor: pointer;
+    transition: border-color .15s, transform .1s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .tool-card:hover { border-color: var(--border-strong); }
+  .tool-card:active { transform: scale(0.98); }
+  .tool-card.active { border: 1.5px solid var(--accent); background: #faf9ff; }
+  .tool-card.hidden { display: none; }
+  .tool-name { font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 3px; }
+  .tool-desc { font-size: 11px; color: var(--text-secondary); line-height: 1.45; margin-bottom: 9px; }
+  .tag-row { display: flex; gap: 4px; flex-wrap: wrap; }
+  .tag { font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 500; }
+
+  /* DIVIDER */
+  .cat-divider { border: none; border-top: 0.5px solid var(--border); margin: 4px 0 26px; }
+
+  /* FOOTER */
+  .footer {
+    background: var(--surface);
+    border-top: 0.5px solid var(--border);
+    padding: 18px 24px;
+    text-align: center;
+  }
+  .footer-txt { font-size: 11px; color: var(--text-muted); }
+
+  /* SCROLL TO TOP */
+  .scroll-top {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 40px; height: 40px;
+    background: var(--text-primary);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s;
+    z-index: 200;
+  }
+  .scroll-top.visible { opacity: 1; pointer-events: auto; }
+
+  /* MOBILE */
+  @media (max-width: 600px) {
+    .hero { padding: 36px 16px 32px; }
+    .main { padding: 20px 16px 60px; }
+    .nav { padding: 0 16px; }
+    .stat { padding: 10px 18px; }
+    .tools-grid { grid-template-columns: repeat(2, 1fr); }
+    .nav-links { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .detail-panel { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-left">
+    <a href="#" class="nav-logo">副業×AIツール</a>
+    <span class="nav-badge">文系が試した</span>
+  </div>
+  <div class="nav-links">
+    <a href="#tools" class="nav-link">ツール一覧</a>
+    <a href="#about" class="nav-link">about</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <p class="hero-eyebrow">bunkei_kaihatsu による実録まとめ</p>
+  <h1 class="hero-title">文系が、<span class="hl">副業で使えるAIツール</span>を<br>まとめてみた。</h1>
+  <p class="hero-sub">プログラミングなし。コードなし。<br>収益化できそうなツールを用途別に整理しました。<br>カードをクリックすると具体的な使い方が読めます。</p>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">36</div><div class="stat-label">掲載ツール</div></div>
+    <div class="stat"><div class="stat-num">9</div><div class="stat-label">副業カテゴリ</div></div>
+    <div class="stat"><div class="stat-num">138</div><div class="stat-label">ノウハウ</div></div>
+  </div>
+</section>
+
+<main class="main" id="tools">
+  <div class="filter-wrap">
+    <div class="filter-row">
+      <button class="fbtn active" onclick="filter(this,'all')">すべて</button>
+      <button class="fbtn" onclick="filter(this,'writing')">文章・note</button>
+      <button class="fbtn" onclick="filter(this,'writing-job')">ライティング受注</button>
+      <button class="fbtn" onclick="filter(this,'x')">X運用</button>
+      <button class="fbtn" onclick="filter(this,'notion')">Notion・資料</button>
+      <button class="fbtn" onclick="filter(this,'translate')">翻訳</button>
+      <button class="fbtn" onclick="filter(this,'marketing')">マーケ・広告</button>
+      <button class="fbtn" onclick="filter(this,'code')">開発補助</button>
+      <button class="fbtn" onclick="filter(this,'data')">Excel・データ</button>
+      <button class="fbtn" onclick="filter(this,'image')">画像</button>
+      <button class="fbtn" onclick="filter(this,'video')">動画・音声</button>
+      <button class="fbtn" onclick="filter(this,'podcast')">音声・ポッドキャスト</button>
+      <button class="fbtn" onclick="filter(this,'bot')">自動化</button>
+      <button class="fbtn" onclick="filter(this,'free')">無料のみ</button>
+    </div>
+  </div>
+
+  <!-- 文章・note -->
+  <div class="cat-section" data-cat="writing">
+    <div class="cat-header"><span class="cat-dot" style="background:#534AB7"></span><span class="cat-title">文章・noteで稼ぐ</span></div>
+    <div class="tools-grid">
+      <div class="tool-card" data-tags="writing free" data-id="claude-note" onclick="showDetail(this)"><p class="tool-name">Claude</p><p class="tool-desc">記事構成・下書き・リライト。長文の一貫性が強い</p><div class="tag-row"><span class="tag" style="background:#EEEDFE;color:#3C3489">文章</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+      <div class="tool-card" data-tags="writing free" data-id="chatgpt-note" onclick="showDetail(this)"><p class="tool-name">ChatGPT</p><p class="tool-desc">アイデア出し・タイトル案。Web検索連携も</p><div class="tag-row"><span class="tag" style="background:#EEEDFE;color:#3C3489">文章</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+      <div class="tool-card" data-tags="writing free" data-id="perplexity" onclick="showDetail(this)"><p class="tool-name">Perplexity</p><p class="tool-desc">リサーチ専用。最新情報を引用付きで収集</p><div class="tag-row"><span class="tag" style="background:#EEEDFE;color:#3C3489">文章</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+      <div class="tool-card" data-tags="writing notion free" data-id="gamma" onclick="showDetail(this)"><p class="tool-name">Gamma</p><p class="tool-desc">プロンプト1つでスライド自動生成</p><div class="tag-row"><span class="tag" style="background:#EAF3DE;color:#27500A">資料</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+    </div>
+  </div>
+  <hr class="cat-divider">
+
+  <!-- ライティング受注 -->
+  <div class="cat-section" data-cat="writing-job">
+    <div class="cat-header"><span class="cat-dot" style="background:#0F6E56"></span><span class="cat-title">ライティング受注で稼ぐ</span></div>
+    <div class="tools-grid">
+      <div class="tool-card" data-tags="writing-job free" data-id="claude-job" onclick="showDetail(this)"><p class="tool-name">Claude</p><p class="tool-desc">クラウドワークス案件の下書き・高速化</p><div class="tag-row"><span class="tag" style="background:#E1F5EE;color:#085041">受注</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+      <div class="tool-card" data-tags="writing-job" data-id="jasper" onclick="showDetail(this)"><p class="tool-name">Jasper AI</p><p class="tool-desc">SEO記事特化。クライアント向け納品に最適</p><div class="tag-row"><span class="tag" style="background:#E1F5EE;color:#085041">受注</span><span class="tag" style="background:#fff8e1;color:#b45309">有料</span></div></div>
+      <div class="tool-card" data-tags="writing-job free" data-id="copyai" onclick="showDetail(this)"><p class="tool-name">Copy.ai</p><p class="tool-desc">LP・メール・広告文の量産。無料枠が広い</p><div class="tag-row"><span class="tag" style="background:#E1F5EE;color:#085041">受注</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+    </div>
+  </div>
+  <hr class="cat-divider">
+
+  <!-- X運用 -->
+  <div class="cat-section" data-cat="x">
+    <div class="cat-header"><span class="cat-dot" style="background:#185FA5"></span><span class="cat-title">X（Twitter）運用で稼ぐ</span></div>
+    <div class="tools-grid">
+      <div class="tool-card" data-tags="x free" data-id="claude-x" onclick="showDetail(this)"><p class="tool-name">Claude</p><p class="tool-desc">スレッド作成・まとめポスト。論理的な構成が得意</p><div class="tag-row"><span class="tag" style="background:#E6F1FB;color:#0C447C">X運用</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+      <div class="tool-card" data-tags="x" data-id="tweethunter" onclick="showDetail(this)"><p class="tool-name">TweetHunter</p><p class="tool-desc">バズ分析＋AI生成＋予約投稿。X特化SaaS</p><div class="tag-row"><span class="tag" style="background:#E6F1FB;color:#0C447C">X運用</span><span class="tag" style="background:#fff8e1;color:#b45309">有料</span></div></div>
+      <div class="tool-card" data-tags="x free" data-id="typefully" onclick="showDetail(this)"><p class="tool-name">Typefully</p><p class="tool-desc">スレッドUI＋AI補完。文章を整えるのに便利</p><div class="tag-row"><span class="tag" style="background:#E6F1FB;color:#0C447C">X運用</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+    </div>
+  </div>
+  <hr class="cat-divider">
+
+  <!-- Notion -->
+  <div class="cat-section" data-cat="notion">
+    <div class="cat-header"><span class="cat-dot" style="background:#3B6D11"></span><span class="cat-title">Notion・資料販売で稼ぐ</span></div>
+    <div class="tools-grid">
+      <div class="tool-card" data-tags="notion free" data-id="claude-notion" onclick="showDetail(this)"><p class="tool-name">Claude</p><p class="tool-desc">テンプレ構成案・説明文・LP文章の生成</p><div class="tag-row"><span class="tag" style="background:#EAF3DE;color:#27500A">Notion</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+      <div class="tool-card" data-tags="notion" data-id="notion-ai" onclick="showDetail(this)"><p class="tool-name">Notion AI</p><p class="tool-desc">ページ自動生成。Notion内で完結</p><div class="tag-row"><span class="tag" style="background:#EAF3DE;color:#27500A">Notion</span><span class="tag" style="background:#fff8e1;color:#b45309">有料</span></div></div>
+    </div>
+  </div>
+  <hr class="cat-divider">
+
+  <!-- 翻訳 -->
+  <div class="cat-section" data-cat="translate">
+    <div class="cat-header"><span class="cat-dot" style="background:#854F0B"></span><span class="cat-title">翻訳・多言語で稼ぐ</span></div>
+    <div class="tools-grid">
+      <div class="tool-card" data-tags="translate free" data-id="deepl" onclick="showDetail(this)"><p class="tool-name">DeepL</p><p class="tool-desc">高精度翻訳。クラウドワークス案件の下訳に</p><div class="tag-row"><span class="tag" style="background:#FAEEDA;color:#633806">翻訳</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+      <div class="tool-card" data-tags="translate free" data-id="claude-translate" onclick="showDetail(this)"><p class="tool-name">Claude</p><p class="tool-desc">ニュアンス調整・自然な日本語化に強い</p><div class="tag-row"><span class="tag" style="background:#FAEEDA;color:#633806">翻訳</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+      <div class="tool-card" data-tags="translate video" data-id="heygen-translate" onclick="showDetail(this)"><p class="tool-name">HeyGen</p><p class="tool-desc">動画を別言語に翻訳・口パク変換して多言語展開</p><div class="tag-row"><span class="tag" style="background:#FAEEDA;color:#633806">翻訳</span><span class="tag" style="background:#fff8e1;color:#b45309">有料</span></div></div>
+    </div>
+  </div>
+  <hr class="cat-divider">
+
+  <!-- マーケ -->
+  <div class="cat-section" data-cat="marketing">
+    <div class="cat-header"><span class="cat-dot" style="background:#993556"></span><span class="cat-title">マーケティング・広告で稼ぐ</span></div>
+    <div class="tools-grid">
+      <div class="tool-card" data-tags="marketing free" data-id="claude-marketing" onclick="showDetail(this)"><p class="tool-name">Claude</p><p class="tool-desc">広告文・メルマガ・LP文章の受注制作</p><div class="tag-row"><span class="tag" style="background:#FBEAF0;color:#72243E">マーケ</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+      <div class="tool-card" data-tags="marketing free" data-id="copyai-marketing" onclick="showDetail(this)"><p class="tool-name">Copy.ai</p><p class="tool-desc">広告コピーを大量生成してABテスト</p><div class="tag-row"><span class="tag" style="background:#FBEAF0;color:#72243E">マーケ</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+      <div class="tool-card" data-tags="marketing" data-id="adcreative" onclick="showDetail(this)"><p class="tool-name">AdCreative.ai</p><p class="tool-desc">広告バナー自動生成。SNS広告運用代行に</p><div class="tag-row"><span class="tag" style="background:#FBEAF0;color:#72243E">マーケ</span><span class="tag" style="background:#fff8e1;color:#b45309">有料</span></div></div>
+    </div>
+  </div>
+  <hr class="cat-divider">
+
+  <!-- 開発補助 -->
+  <div class="cat-section" data-cat="code">
+    <div class="cat-header"><span class="cat-dot" style="background:#378ADD"></span><span class="cat-title">開発補助で稼ぐ</span></div>
+    <div class="tools-grid">
+      <div class="tool-card" data-tags="code free" data-id="claude-code" onclick="showDetail(this)"><p class="tool-name">Claude</p><p class="tool-desc">コード生成・デバッグ。文系でも受注できる</p><div class="tag-row"><span class="tag" style="background:#E6F1FB;color:#0C447C">開発</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+      <div class="tool-card" data-tags="code free" data-id="cursor" onclick="showDetail(this)"><p class="tool-name">Cursor</p><p class="tool-desc">AIエディタ。会話しながらコードを書ける</p><div class="tag-row"><span class="tag" style="background:#E6F1FB;color:#0C447C">開発</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+      <div class="tool-card" data-tags="code free" data-id="v0" onclick="showDetail(this)"><p class="tool-name">v0 by Vercel</p><p class="tool-desc">テキストからUIを自動生成。LP制作受注に</p><div class="tag-row"><span class="tag" style="background:#E6F1FB;color:#0C447C">開発</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+    </div>
+  </div>
+  <hr class="cat-divider">
+
+  <!-- データ -->
+  <div class="cat-section" data-cat="data">
+    <div class="cat-header"><span class="cat-dot" style="background:#888780"></span><span class="cat-title">Excel・データ分析で稼ぐ</span></div>
+    <div class="tools-grid">
+      <div class="tool-card" data-tags="data free" data-id="claude-excel" onclick="showDetail(this)"><p class="tool-name">Claude</p><p class="tool-desc">数式・マクロ生成。データ整理の受注</p><div class="tag-row"><span class="tag" style="background:#F1EFE8;color:#444441">Excel</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+      <div class="tool-card" data-tags="data free" data-id="chatgpt-excel" onclick="showDetail(this)"><p class="tool-name">ChatGPT</p><p class="tool-desc">Pythonコード生成でデータ分析を自動化</p><div class="tag-row"><span class="tag" style="background:#F1EFE8;color:#444441">Excel</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+      <div class="tool-card" data-tags="data" data-id="julius" onclick="showDetail(this)"><p class="tool-name">Julius AI</p><p class="tool-desc">CSVを渡すだけでグラフ・分析レポート</p><div class="tag-row"><span class="tag" style="background:#F1EFE8;color:#444441">データ</span><span class="tag" style="background:#fff8e1;color:#b45309">有料</span></div></div>
+    </div>
+  </div>
+  <hr class="cat-divider">
+
+  <!-- 画像 -->
+  <div class="cat-section" data-cat="image">
+    <div class="cat-header"><span class="cat-dot" style="background:#993C1D"></span><span class="cat-title">画像・デザインで稼ぐ</span></div>
+    <div class="tools-grid">
+      <div class="tool-card" data-tags="image" data-id="midjourney" onclick="showDetail(this)"><p class="tool-name">Midjourney</p><p class="tool-desc">クオリティ最高峰。ストック販売・受注</p><div class="tag-row"><span class="tag" style="background:#FAECE7;color:#712B13">画像</span><span class="tag" style="background:#fff8e1;color:#b45309">有料</span></div></div>
+      <div class="tool-card" data-tags="image free" data-id="leonardo" onclick="showDetail(this)"><p class="tool-name">Leonardo AI</p><p class="tool-desc">無料枠大。キャラクター固定が得意</p><div class="tag-row"><span class="tag" style="background:#FAECE7;color:#712B13">画像</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+      <div class="tool-card" data-tags="image free" data-id="canva" onclick="showDetail(this)"><p class="tool-name">Canva AI</p><p class="tool-desc">デザイン＋テキスト生成が一体化</p><div class="tag-row"><span class="tag" style="background:#FAECE7;color:#712B13">画像</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+    </div>
+  </div>
+  <hr class="cat-divider">
+
+  <!-- 動画 -->
+  <div class="cat-section" data-cat="video">
+    <div class="cat-header"><span class="cat-dot" style="background:#D4537E"></span><span class="cat-title">動画・音声で稼ぐ</span></div>
+    <div class="tools-grid">
+      <div class="tool-card" data-tags="video free" data-id="suno" onclick="showDetail(this)"><p class="tool-name">Suno AI</p><p class="tool-desc">テキストから楽曲生成。BGM販売・YouTube</p><div class="tag-row"><span class="tag" style="background:#FBEAF0;color:#72243E">音楽</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+      <div class="tool-card" data-tags="video" data-id="heygen" onclick="showDetail(this)"><p class="tool-name">HeyGen</p><p class="tool-desc">AIアバター動画。顔出しなしYouTube運用</p><div class="tag-row"><span class="tag" style="background:#FBEAF0;color:#72243E">動画</span><span class="tag" style="background:#fff8e1;color:#b45309">有料</span></div></div>
+      <div class="tool-card" data-tags="video free" data-id="capcut" onclick="showDetail(this)"><p class="tool-name">CapCut AI</p><p class="tool-desc">AI字幕・カット。ショート動画量産に</p><div class="tag-row"><span class="tag" style="background:#FBEAF0;color:#72243E">動画</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+    </div>
+  </div>
+  <hr class="cat-divider">
+
+  <!-- ポッドキャスト -->
+  <div class="cat-section" data-cat="podcast">
+    <div class="cat-header"><span class="cat-dot" style="background:#BA7517"></span><span class="cat-title">音声・ポッドキャストで稼ぐ</span></div>
+    <div class="tools-grid">
+      <div class="tool-card" data-tags="podcast free" data-id="elevenlabs" onclick="showDetail(this)"><p class="tool-name">ElevenLabs</p><p class="tool-desc">テキストから自然な音声生成。ナレーション受注に</p><div class="tag-row"><span class="tag" style="background:#FAEEDA;color:#633806">音声</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+      <div class="tool-card" data-tags="podcast free" data-id="claude-podcast" onclick="showDetail(this)"><p class="tool-name">Claude</p><p class="tool-desc">ポッドキャスト台本・構成・要約の生成</p><div class="tag-row"><span class="tag" style="background:#FAEEDA;color:#633806">音声</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+      <div class="tool-card" data-tags="podcast free" data-id="notebooklm" onclick="showDetail(this)"><p class="tool-name">NotebookLM</p><p class="tool-desc">資料から対話形式の音声番組を自動生成</p><div class="tag-row"><span class="tag" style="background:#FAEEDA;color:#633806">音声</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+    </div>
+  </div>
+  <hr class="cat-divider">
+
+  <!-- 自動化 -->
+  <div class="cat-section" data-cat="bot">
+    <div class="cat-header"><span class="cat-dot" style="background:#1D9E75"></span><span class="cat-title">チャットボット・自動化で稼ぐ</span></div>
+    <div class="tools-grid">
+      <div class="tool-card" data-tags="bot free" data-id="dify" onclick="showDetail(this)"><p class="tool-name">Dify</p><p class="tool-desc">ノーコードでAIボットを構築・販売</p><div class="tag-row"><span class="tag" style="background:#E1F5EE;color:#085041">自動化</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+      <div class="tool-card" data-tags="bot free" data-id="make" onclick="showDetail(this)"><p class="tool-name">Make</p><p class="tool-desc">AIと各サービスを繋ぐ自動化。構築を受注できる</p><div class="tag-row"><span class="tag" style="background:#E1F5EE;color:#085041">自動化</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+      <div class="tool-card" data-tags="bot free" data-id="voiceflow" onclick="showDetail(this)"><p class="tool-name">Voiceflow</p><p class="tool-desc">企業向けチャットボットを構築して納品</p><div class="tag-row"><span class="tag" style="background:#E1F5EE;color:#085041">自動化</span><span class="tag" style="background:#e8f5e9;color:#1b5e20">無料あり</span></div></div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <section id="about" style="margin-top:48px;padding-top:32px;border-top:0.5px solid var(--border);">
+    <p style="font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:.06em;margin-bottom:10px;">このサイトについて</p>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.8;max-width:520px;">プログラミング未経験の文系が、AIツールだけで副業に挑んだ記録です。「1人+AI」というコンセプトで情報発信しています。掲載ツールは実際に試したものを中心に、用途別・収益化しやすさで選定しています。<br><br>X（Twitter）: <a href="https://twitter.com/bunkei_kaihatsu" style="color:var(--accent);text-decoration:none;">@bunkei_kaihatsu</a></p>
+  </section>
+</main>
+
+<footer class="footer">
+  <p class="footer-txt">© 2026 副業×AIツールまとめ — bunkei_kaihatsu</p>
+</footer>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="トップへ戻る">↑</button>
+
+<script>
+const DATA = {
+  "claude-note":{title:"Claude — note執筆ノウハウ",items:[{t:"構成から作らせる",d:"「〇〇について1500字のnote記事の構成を作って」とだけ投げる。見出しが出たら各セクションを別々に書かせると質が上がる。"},{t:"自分の体験を差し込む",d:"下書きを出力させた後、自分の実体験・失敗談を1〜2箇所足すだけで差別化できる。"},{t:"有料ライン設計に使う",d:"「この記事の後半を有料部分にしたい。切り口をどこにすればいいか提案して」で売れる構成になりやすい。"},{t:"タイトル10案を出させる",d:"「バズるタイトルを10案出して、理由も添えて」が鉄板。自分では思いつかない切り口が混ざってくる。"},{t:"コスト感",d:"claude.aiの無料プランで十分。長文を書かせるならProプラン（月$20）が安定。"}]},
+  "chatgpt-note":{title:"ChatGPT — note執筆ノウハウ",items:[{t:"検索意図からネタを探す",d:"「〇〇というキーワードで検索する人が知りたいことをリストアップして」でnoteのネタ帳を作れる。"},{t:"Web検索と組み合わせる",d:"GPT-4oはWebブラウジング機能で最新情報を取れる。時事ネタ系noteのリサーチに向いている。"},{t:"見出し→本文の分割生成",d:"一気に書かせると質が落ちる。見出しだけ作らせ→各見出しを1つずつ書かせる方が均質なクオリティになる。"},{t:"GPTs活用",d:"note専用のGPTsを自分で作るとプロンプトを毎回書かずに済む。文体をあらかじめ設定できる。"},{t:"コスト感",d:"無料版でも記事生成は十分。月$20のPlusプランで制限なし。"}]},
+  "perplexity":{title:"Perplexity — リサーチノウハウ",items:[{t:"一次ソース収集に使う",d:"「〇〇について最新の統計データと出典を教えて」で引用できる数字を素早く収集。noteの信頼性が上がる。"},{t:"Claude・ChatGPTと役割分担",d:"リサーチはPerplexity→構成・執筆はClaude、という2段階フローが効率的。"},{t:"Spaces機能でテーマ管理",d:"特定テーマのSpaceを作ると、そのテーマに特化した検索ができる。連載noteのリサーチ管理に使える。"},{t:"コスト感",d:"無料プランで十分使える。Proプラン（月$20）でより深い検索が可能。"}]},
+  "gamma":{title:"Gamma — 資料販売ノウハウ",items:[{t:"プロンプト1つでスライド完成",d:"「副業初心者向けAI活用ガイド、10スライド」と入れるだけで構成・デザイン済みのスライドが出る。"},{t:"noteで販売",d:"PDF書き出し→noteで販売。1本500〜1000円でも積み上がる。"},{t:"テンプレ量産が強み",d:"同じ構成で業種違いを量産しやすい。「営業向け」「フリーランス向け」と出し分けてSKUを増やせる。"},{t:"コスト感",d:"無料プランで月10本は作れる。"}]},
+  "claude-job":{title:"Claude — ライティング受注ノウハウ",items:[{t:"クラウドワークスで時給を上げる",d:"1本2000字の記事を通常1時間かかるところ、Claudeで下書き→自分でリライトのフローで20〜30分に短縮。時給が実質2〜3倍になる。"},{t:"提案文もAIで書く",d:"「このクライアントの募集要項に合わせた提案文を書いて」でクラウドワークスの受注率が上がる。"},{t:"専門分野を作る",d:"医療・法律・金融などの専門知識はClaudeに補完させながら、自分はジャンル特化ライターとして単価を上げる。"},{t:"納品スピードを武器にする",d:"AIで速く仕上がることを逆手に取り「最短翌日納品」を売りにする。"},{t:"コスト感",d:"無料プランで十分。案件が増えたらProプランに切り替えるタイミングを測る。"}]},
+  "jasper":{title:"Jasper AI — ライティング受注ノウハウ",items:[{t:"SEO記事量産に特化",d:"SEOキーワードを入れると最適化された記事構成を自動生成。クライアントへのSEO記事納品に向いている。"},{t:"ブランドボイス設定",d:"クライアントのトーンや文体を登録しておける。複数クライアントの文体を使い分けられる。"},{t:"コスト感",d:"月$49〜。月5万円以上の受注が安定してからの導入が現実的。最初はClaudeで代替できる。"}]},
+  "copyai":{title:"Copy.ai — ライティング受注ノウハウ",items:[{t:"無料枠が広い",d:"無料プランで月2000ワード。LP・広告文・メールのサンプルを作って受注提案に使える。"},{t:"LP文章の受注に強い",d:"「ヒーローコピー」「ベネフィット」「CTA」など、LP構成ごとのテンプレートが揃っている。"},{t:"メルマガ代行に使う",d:"週次メルマガの代行を受注→Copy.aiで量産する。月3〜5万円の継続案件につながりやすい。"},{t:"コスト感",d:"無料プランから始めて、受注が安定したらProプラン（月$49）に移行。"}]},
+  "claude-x":{title:"Claude — X運用ノウハウ",items:[{t:"スレッドの骨格を作らせる",d:"「〇〇について5ツイートのスレッドを書いて。1ツイート140字以内」で骨格を出力。自分の言葉に直すだけ。"},{t:"バズ投稿の型を学ばせる",d:"「このツイートがバズった理由を分析して、同じ型で別テーマを書いて」でノウハウを横展開できる。"},{t:"プロフィール文の最適化",d:"「フォロワーを増やしたい。現在のプロフィール文を改善して」で自己紹介文のABテスト案を複数出せる。"},{t:"コスト感",d:"claude.aiの無料プランで運用可能。"}]},
+  "tweethunter":{title:"TweetHunter — X運用ノウハウ",items:[{t:"バズ投稿データベースで学ぶ",d:"特定キーワードでバズった投稿を一覧表示できる。「副業」「AI」などのテーマで検索してネタ帳にする。"},{t:"AI Ghostwriterで量産",d:"自分の過去ツイートを学習させると自分の文体でAI生成できる。"},{t:"予約投稿でベストタイム狙い",d:"フォロワーのアクティブ時間に自動投稿。日本人向けなら朝7〜9時・昼12時・夜21〜23時が鉄板。"},{t:"コスト感",d:"月$49〜。まずClaude無料プランで代替し、月5万円超えたら導入検討が現実的。"}]},
+  "typefully":{title:"Typefully — X運用ノウハウ",items:[{t:"スレッド作成UIが秀逸",d:"ツイートを縦に並べて書けるエディタ。スレッド副業の作業効率が圧倒的に上がる。"},{t:"AI補完で文章を整える",d:"書きかけの文章を選択→「Improve」でAIが自然な表現に直す。Claudeで下書き→Typefullyで整形が相性いい。"},{t:"予約投稿と分析が無料",d:"無料プランでも予約投稿・インプレッション分析ができる。"},{t:"コスト感",d:"無料プランで主要機能は使える。月$12.50のCreatorプランでAI機能が強化される。"}]},
+  "claude-notion":{title:"Claude — Notionテンプレ販売ノウハウ",items:[{t:"テンプレの構成をまるごと設計させる",d:"「副業管理Notionテンプレートに必要なデータベース構成を設計して」で骨格が出る。"},{t:"販売ページの文章を書かせる",d:"「このテンプレートのBOOTH販売ページ用の説明文を書いて」でそのまま使える文章が出る。"},{t:"テーマ違いを量産",d:"「さっきのテンプレをフリーランス案件管理用に変えて」で派生商品を素早く量産できる。"},{t:"販売先",d:"BOOTH・note・Gumroad。最初はnoteが一番集客しやすい。"}]},
+  "notion-ai":{title:"Notion AI — テンプレ販売ノウハウ",items:[{t:"ページ説明文をその場で生成",d:"テンプレート内の各ページを選択→「AIに書いてもらう」→説明文を自動生成。マニュアル作成が大幅に速くなる。"},{t:"Notion内完結が最大の強み",d:"Claude→コピペ→Notionの手間がなく、Notion上で直接AIを使えるのでテンプレ作成の摩擦が最小。"},{t:"翻訳で英語展開",d:"日本語テンプレをNotion AIで英語翻訳→Gumroadで海外販売。単価が3〜5倍になることも。"},{t:"コスト感",d:"Notionのビジネスプラン（月$15）に含まれる。すでにNotionを使っているなら追加コストほぼゼロ。"}]},
+  "deepl":{title:"DeepL — 翻訳副業ノウハウ",items:[{t:"クラウドワークス翻訳案件の基盤",d:"英日・日英翻訳の下訳をDeepLで一瞬で出し、自分で校正して納品。作業時間を70%削減できる。"},{t:"DeepL Writeで自然な文章に",d:"翻訳後のぎこちない日本語をDeepL Writeで整える。Claude・DeepLの2段階で品質が上がる。"},{t:"専門分野で単価を上げる",d:"医療・法律・IT分野は単価が高い。Claudeで専門用語を補完しながら「専門翻訳者」として受注する。"},{t:"コスト感",d:"無料プランで月50万字。副業初期は十分。DeepL Pro（月1125円〜）で制限なし。"}]},
+  "claude-translate":{title:"Claude — 翻訳副業ノウハウ",items:[{t:"ニュアンス調整が得意",d:"DeepLの直訳をClaudeに「より自然な日本語に整えて」と投げると読みやすくなる。2段階フローが最強。"},{t:"多言語コンテンツ展開",d:"自分のnote記事を英語・中国語に翻訳してMediumで発信。海外読者にリーチできる。"},{t:"字幕ファイル翻訳",d:"動画の字幕（SRT形式）をClaudeに翻訳させる。YouTube動画の多言語字幕制作を受注できる。"},{t:"コスト感",d:"claude.aiの無料プランで対応可能。"}]},
+  "heygen-translate":{title:"HeyGen — 動画翻訳ノウハウ",items:[{t:"日本語動画を英語に変換",d:"口パクまで変換してくれるので、日本語で撮った動画を英語YouTubeチャンネル用に多言語展開できる。"},{t:"企業の多言語動画制作を受注",d:"採用動画・製品説明を複数言語版にする案件が増えている。1言語追加ごとに費用を乗せて受注できる。"},{t:"コスト感",d:"Creator月$29から。受注前に機能の詳細を確認することを推奨。"}]},
+  "claude-marketing":{title:"Claude — マーケ・広告ノウハウ",items:[{t:"広告コピーの受注",d:"「Meta広告のコピーを3パターン書いて」でABテスト用の広告文を量産。SNS広告運用代行の武器になる。"},{t:"メルマガ代行",d:"クライアントのブランドトーンをClaudeに教えて「毎週のメルマガを書いて」。月3〜5万円の継続案件に。"},{t:"SNS投稿カレンダー作成",d:"「このサービスの1ヶ月分のInstagram投稿カレンダーを作って」でコンテンツ設計ごと受注できる。"},{t:"コスト感",d:"無料プランで十分。広告運用代行なら自分の収益からProプランを経費計上できる。"}]},
+  "copyai-marketing":{title:"Copy.ai — マーケ・広告ノウハウ",items:[{t:"広告コピーを大量生成",d:"1つのサービスに対して10〜20パターンの広告コピーを生成してABテスト。クライアントへの提案力が上がる。"},{t:"メールシーケンス自動生成",d:"ステップメールの全文を一括生成できる。メールマーケティング代行の工数を大幅削減。"},{t:"コスト感",d:"無料プランで月2000ワード。受注が増えたらPro（月$49）へ。"}]},
+  "adcreative":{title:"AdCreative.ai — 広告バナーノウハウ",items:[{t:"広告バナーを自動生成",d:"商品情報とブランドカラーを入れるだけでFacebook・Instagram広告用バナーが自動生成される。"},{t:"SNS広告運用代行に組み込む",d:"月5万円〜の広告運用代行案件にバナー制作を含めて単価を上げる。AIで制作コストを下げて利益率UP。"},{t:"コスト感",d:"月$21〜。広告運用代行を受注している場合は経費計上できる。"}]},
+  "claude-code":{title:"Claude — 開発補助ノウハウ",items:[{t:"文系でもコード受注できる",d:"「このExcelマクロを書いて」「このWebスクレイパーを作って」程度の案件はClaudeで十分対応できる。"},{t:"クラウドワークスの小規模案件を狙う",d:"1〜3万円のスクリプト作成・ツール制作案件をClaudeで対応。技術力より提案力とコミュニケーション力が重要。"},{t:"エラーをそのまま貼る",d:"「このエラーが出た。修正して」とコードとエラーメッセージをそのままClaudeに渡すだけで直してくれる。"},{t:"コスト感",d:"claude.aiの無料プランで対応可能。複雑なプロジェクトはProプランが安定。"}]},
+  "cursor":{title:"Cursor — 開発補助ノウハウ",items:[{t:"AIと会話しながらコードを書く",d:"エディタにAIが組み込まれているので、「この関数を修正して」「テストを書いて」をその場で実行できる。"},{t:"既存コードの解読",d:"クライアントから渡されたコードをCursorに読み込ませて「このコードは何をしているか説明して」と聞ける。"},{t:"受注後の作業効率が大幅UP",d:"通常の開発速度が2〜5倍になる体感。同じ時間でより多くの案件を回せるようになる。"},{t:"コスト感",d:"無料プランあり。Proプラン月$20でGPT-4o・Claude等が使い放題。"}]},
+  "v0":{title:"v0 by Vercel — LP制作ノウハウ",items:[{t:"テキストからUIを自動生成",d:"「副業サービスのランディングページを作って」と入れるだけでReactコンポーネントが生成される。"},{t:"LP制作受注に使う",d:"v0でたたき台を作り→Claudeで文章を最適化→Vercelでデプロイ。LP制作を1〜3万円で受注できる。"},{t:"ポートフォリオをすぐ作れる",d:"副業を始めるためのポートフォリオサイトをv0で一瞬で作れる。受注前の準備コストが下がる。"},{t:"コスト感",d:"無料プランあり。月200クレジットで十分スタートできる。"}]},
+  "claude-excel":{title:"Claude — Excel・データ受注ノウハウ",items:[{t:"Excel関数・マクロの作成受注",d:"「VLOOKUP・IF・SUMIFSが絡み合う数式を作って」はClaudeが得意。クラウドワークスに需要が多い。"},{t:"VBAマクロ生成",d:"「請求書を自動で作るExcelマクロを書いて」をそのままClaudeに投げると動くコードが出る。"},{t:"データ整理・クレンジング",d:"「このCSVの重複を除いて、名前順に並べ替えて集計するPythonコードを書いて」で自動化ツールを作れる。"},{t:"コスト感",d:"無料プランで十分。Excelファイルを直接渡すにはProプランが必要な場合あり。"}]},
+  "chatgpt-excel":{title:"ChatGPT — データ分析ノウハウ",items:[{t:"Pythonコード生成で自動化",d:"「このCSVから売上トレンドを分析するPythonコードを書いて」でデータ分析ツールを自動生成できる。"},{t:"Code Interpreterで直接分析",d:"GPT-4o（有料）のCode Interpreter機能でExcelやCSVをそのまま渡して分析・グラフ化まで完結。"},{t:"データ分析レポート受注",d:"クライアントのデータを受け取り→ChatGPTで分析→レポート作成。5〜10万円の案件に発展しやすい。"},{t:"コスト感",d:"Code Interpreter使用にはPlus月$20が必要。それ以外は無料で対応可能。"}]},
+  "julius":{title:"Julius AI — データ分析ノウハウ",items:[{t:"CSVアップロードで即グラフ化",d:"ExcelやCSVをアップロードするだけでAIがグラフ・統計・インサイトを自動生成。コード不要。"},{t:"クライアントへの分析レポート",d:"Julius AIで生成したグラフと解説をそのままレポートとして納品できる。データ分析未経験でも受注可能。"},{t:"コスト感",d:"無料プランあり。月$20のProプランでより高度な分析と無制限利用が可能。"}]},
+  "midjourney":{title:"Midjourney — 画像副業ノウハウ",items:[{t:"note記事の表紙を受注",d:"ライターやブロガー向けに「note表紙デザイン1枚1500円」で受注するのが入りやすい。"},{t:"ストック素材販売",d:"Adobe Stock・PIXTAにAI生成画像を出品。月500点で数万円の事例あり。"},{t:"プロンプト販売",d:"「バズるnote表紙が作れるプロンプト集」をnoteで販売。画像よりプロンプト販売のほうが収益化しやすいケースも。"},{t:"コスト感",d:"月$10のBasicプランから。月200枚生成可能。"}]},
+  "leonardo":{title:"Leonardo AI — 画像副業ノウハウ",items:[{t:"無料150 tokensを毎日使い切る",d:"毎日リセットされる無料tokenで画像生成し続ければ月0円で副業素材を量産できる。"},{t:"LINEスタンプ量産に向く",d:"一貫したキャラクターを固定して複数ポーズを生成。LINEスタンプ1セット40枚を数時間で作れる。"},{t:"コスト感",d:"無料プランで副業可能。月$12のAprrenticeプランで制限が大幅に緩和される。"}]},
+  "canva":{title:"Canva AI — デザイン副業ノウハウ",items:[{t:"SNSバナーの受注",d:"テンプレ＋Magic Mediaで高品質なSNSバナーを短時間で作れる。1枚3000〜5000円の受注が現実的。"},{t:"テンプレ販売",d:"Canvaのテンプレートをクリエイターとして販売できる。承認制だがグローバルに売れる可能性がある。"},{t:"コスト感",d:"Proプラン月1500円でほぼ全機能解放。費用対効果は高い。"}]},
+  "suno":{title:"Suno AI — 音楽副業ノウハウ",items:[{t:"BGM販売でストック収入",d:"生成した楽曲を商用ライセンス取得（有料プラン必要）→AudioJungle・Motionscapeで販売。"},{t:"YouTubeチャンネルで収益化",d:"作業用BGM・勉強用・カフェ風のチャンネルを開設。1本10〜30分のロング動画が伸びやすい。"},{t:"コスト感",d:"無料プランは月50曲。商用利用にはProプラン月$8が必要。"}]},
+  "heygen":{title:"HeyGen — 動画副業ノウハウ",items:[{t:"顔出しなしYouTubeチャンネル",d:"AIアバターが喋る解説動画を量産。「AI・副業・投資」テーマが特に伸びやすい。"},{t:"スクリプトはClaudeで作る",d:"Claude→HeyGenの2段階フロー。「〇〇の解説動画5分用スクリプトを書いて」でClaudeに書かせてHeyGenに貼る。"},{t:"企業向け動画制作を受注",d:"採用動画・製品紹介動画を受注。1本3〜10万円の案件がある。"},{t:"コスト感",d:"Creator月$29で月15分・商用OK。副業なら最低限これが必要。"}]},
+  "capcut":{title:"CapCut AI — 動画副業ノウハウ",items:[{t:"AI字幕で編集時間を1/3に",d:"音声を自動認識して字幕を付けてくれる。字幕付き動画の受注コストが下がる。"},{t:"ショート動画を量産して受注",d:"TikTok・Reels・ショートの編集を受注。1本3000〜8000円。"},{t:"コスト感",d:"基本無料。ほとんどの副業ユースケースは無料プランで完結する。"}]},
+  "elevenlabs":{title:"ElevenLabs — 音声副業ノウハウ",items:[{t:"ナレーション受注",d:"YouTube動画・企業PR動画・e-ラーニングのナレーションを受注。1分あたり500〜2000円の相場。"},{t:"自分の声をクローンして販売",d:"自分の声をAIクローン化→ナレーション素材として販売。一度作れば繰り返し収益になる。"},{t:"ポッドキャストの音声化",d:"テキスト原稿をElevenLabsで音声化→Spotifyで配信。台本はClaude、音声はElevenLabsで完全自動化。"},{t:"コスト感",d:"無料プランで月1万文字（約10分相当）。Starterプラン月$5で月3万文字。"}]},
+  "claude-podcast":{title:"Claude — ポッドキャストノウハウ",items:[{t:"台本を自動生成",d:"「〇〇というテーマで10分のポッドキャスト台本を書いて。自然な会話調で」で即使える台本が出る。"},{t:"2人対話形式で作る",d:"「ホストとゲストの対話形式で書いて」と指示すると臨場感のある台本になる。NotebookLMと相性がいい。"},{t:"既存コンテンツをポッドキャスト化",d:"自分のnote記事をClaudeに渡して「ポッドキャスト用に台本化して」で音声コンテンツに変換できる。"},{t:"コスト感",d:"無料プランで十分。"}]},
+  "notebooklm":{title:"NotebookLM — ポッドキャストノウハウ",items:[{t:"資料から音声番組を自動生成",d:"PDFやテキストをアップロードすると、AIが対話形式の音声番組（Audio Overview）を自動生成してくれる。"},{t:"自分のnote記事を音声化",d:"note記事をNotebookLMに読み込ませると、2人のAIが議論する形式の音声コンテンツになる。"},{t:"完全無料",d:"Googleの無料ツール。登録のみで使える。音声ポッドキャスト副業の入門に最適。"},{t:"コスト感",d:"完全無料。Googleアカウントがあればすぐ使える。"}]},
+  "dify":{title:"Dify — チャットボット副業ノウハウ",items:[{t:"ノーコードでAIアプリを構築",d:"プログラミングなしでチャットボット・AIツールを作れる。「FAQボット」「文章生成ツール」を企業向けに販売。"},{t:"企業向けボット構築を受注",d:"「社内FAQをAI化したい」という中小企業向けの案件が増えている。構築費5〜30万円の案件が狙える。"},{t:"自分のノウハウをボット化",d:"自分の副業ノウハウをDifyでボット化→有料販売。SaaS型の収益モデルを作れる。"},{t:"コスト感",d:"セルフホスト版は無料。クラウド版は月$59〜だがAPIコストは別途必要。"}]},
+  "make":{title:"Make — 自動化副業ノウハウ",items:[{t:"業務自動化の構築を受注",d:"「Googleフォームの回答を自動でSlackに通知したい」などの自動化案件を受注。1件3〜10万円。"},{t:"AI連携で付加価値を上げる",d:"フォーム送信→MakeでClaude API呼び出し→自動返信文生成→メール送信、という自動化フローを構築して納品できる。"},{t:"MakeはZapierより安い",d:"月1万オペレーション無料。有料も月$9〜とZapierより安く、フリーランスの受注ツールに向いている。"},{t:"コスト感",d:"無料プランで月1000オペレーション。副業の学習・テストなら十分。"}]},
+  "voiceflow":{title:"Voiceflow — チャットボット副業ノウハウ",items:[{t:"企業向けチャットボットを構築・納品",d:"カスタマーサポート・予約受付・FAQ対応ボットを構築して納品。1件10〜50万円の案件が狙える。"},{t:"ビジュアルでフロー設計",d:"会話フローをビジュアルで設計できるので、コード不要でプロ品質のボットが作れる。"},{t:"保守・運用で継続収益",d:"納品後の月次保守費用（1〜3万円）を継続契約にすることでストック収益化できる。"},{t:"コスト感",d:"無料プランあり。Pro月$50でより高度なAI連携が可能。"}]}
+};
+
+let activeCard = null;
+let activePanel = null;
+
+function buildPanelHTML(d) {
+  return `<div class="detail-header">
+    <p class="detail-title">${d.title}</p>
+    <button class="detail-close" onclick="closeDetail()" aria-label="閉じる">✕</button>
+  </div>
+  <ul class="knowhow-list">${d.items.map((item,i)=>`
+    <li class="knowhow-item">
+      <span class="knowhow-num">0${i+1}</span>
+      <div><p class="knowhow-title">${item.t}</p><p class="knowhow-desc">${item.d}</p></div>
+    </li>`).join('')}
+  </ul>`;
+}
+
+function getColCount() {
+  return parseInt(getComputedStyle(document.documentElement).getPropertyValue('--cols')) || 4;
+}
+
+function showDetail(card) {
+  const d = DATA[card.dataset.id];
+  if (!d) return;
+  if (activeCard === card) { closeDetail(); return; }
+  closeDetail();
+  card.classList.add('active');
+  activeCard = card;
+  const grid = card.parentElement;
+  const cards = [...grid.querySelectorAll('.tool-card:not(.hidden)')];
+  const idx = cards.indexOf(card);
+  const cols = getColCount();
+  const rowEnd = Math.min(idx - (idx % cols) + cols, cards.length) - 1;
+  const anchorCard = cards[rowEnd];
+  const panel = document.createElement('div');
+  panel.className = 'inline-detail';
+  panel.innerHTML = buildPanelHTML(d);
+  anchorCard.after(panel);
+  activePanel = panel;
+  setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+}
+
+function closeDetail() {
+  if (activePanel) { activePanel.remove(); activePanel = null; }
+  if (activeCard) { activeCard.classList.remove('active'); activeCard = null; }
+}
+
+function filter(btn, tag) {
+  document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  closeDetail();
+  document.querySelectorAll('.tool-card').forEach(card => {
+    const tags = card.dataset.tags || '';
+    card.classList.toggle('hidden', tag !== 'all' && !tags.split(' ').includes(tag));
+  });
+  document.querySelectorAll('.cat-section').forEach(sec => {
+    const visible = [...sec.querySelectorAll('.tool-card')].some(c => !c.classList.contains('hidden'));
+    sec.classList.toggle('hidden', !visible);
+    const hr = sec.nextElementSibling;
+    if (hr && hr.classList.contains('cat-divider')) hr.style.display = visible ? '' : 'none';
+  });
+}
+
+// Scroll to top
+const scrollBtn = document.getElementById('scrollTop');
+window.addEventListener('scroll', () => {
+  scrollBtn.classList.toggle('visible', window.scrollY > 400);
+});
+</script>
+</body>
+</html>
